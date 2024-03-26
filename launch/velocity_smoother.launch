@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager"/>
+  <node pkg="nodelet" type="nodelet" name="velocity_smoother" args="load velocity_smoother/VelocitySmootherNodelet nodelet_manager" output="screen">
+    <rosparam file="$(find velocity_smoother)/params/velocity_smoother_params.yaml" command="load"/>
+    <remap from="/velocity_smoother/odom"         to="/pallet_truck/odometry/filtered"/>
+    <remap from="/velocity_smoother/cmd_vel"      to="/pallet_truck/tricycle_controller/cmd_vel"/>
+    <remap from="/velocity_smoother/smoothed_vel" to="/pallet_truck/smoothed_vel"/>
+  </node>
+</launch>
